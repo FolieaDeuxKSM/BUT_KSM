@@ -1,0 +1,85 @@
+<nav class="navbar navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Anasayfa</a>
+    <a class="navbar-brand" [routerLink]="['/fileadd']" routerLinkActive="router-link-active" >Dosya Ekle</a>
+
+  </nav>
+<div class="container-fluid">
+    <div class="row mt-5">
+        <div class="col-lg-6 offset-md-3">
+          <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+              <a class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" (click)="GetFilesByCategory()" aria-selected="true">Dosyalar</a>
+              <a class="nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" (click)="GetImagesByCategory()" aria-selected="false">Resimler</a>
+              <a class="nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" (click)="GetAudiosByCategory()" aria-selected="false">Sesler</a>
+            </div>
+          </nav>
+          <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+              <h3 class="mt-3" *ngIf="!Files?.length">Gösterilecek bir dosya yok</h3>
+              <table class="table mt-3" *ngIf="Files?.length">
+                <thead>
+                  <tr>
+                    <th>Dosya Adı</th>
+                    <th>Gönderim Tarihi</th>
+                    <th>Link</th>
+                    <th>Sil</th>
+                  </tr>
+                </thead>
+               
+                <tbody>
+                  <tr *ngFor="let item of Files; let i=index">
+                    <td scope="row"><strong> {{item.name}}</strong></td>
+                    <td>{{item.createdate |  date:"M/d/yy, h:mm" }}</td>
+                    <td><button type="button" class="btn btn-outline-primary" (click)="preview(item.file)">Önizle</button></td>
+                    <td><button type="button" class="btn btn-outline-danger" (click)="deleteFile(item)">Sil</button></td>
+                  </tr>
+                 
+                </tbody>
+              </table>
+            </div>
+            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+              <h3 class="mt-3" *ngIf="!Pictures?.length">Gösterilecek bir resim yok</h3>
+              <div class="row">
+                <div class="col-lg-4" *ngFor="let item of Pictures">
+                  <div class="card text-left  mt-3" >
+                    <img class="card-img-top" [src]="item.file" alt="">
+                    <div class="card-body">
+                      <h4 class="card-title">{{item.name}}</h4>
+                      <p class="card-text">{{item.createdate |  date:"M/d/yy, h:mm" }}</p>
+    
+                      <button type="button" class="btn btn-outline-primary" (click)="preview(item.file)">Önizle</button>
+                      <button type="button" class="btn btn-outline-danger ml-3" (click)="deleteFile(item)">Sil</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+             
+            </div>
+            <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+              <h3 class="mt-3" *ngIf="!Audios?.length" >Gösterilecek bir ses yok</h3>
+              <table class="table mt-3" *ngIf="Audios?.length">
+                <thead>
+                  <tr>
+                    <th>Ses Adı</th>
+                    <th>Gönderim Tarihi</th>
+                    <th>Link</th>
+                    <th>Sil</th>
+                  </tr>
+                </thead>
+                
+                <tbody>
+                  <tr *ngFor="let item of Audios; let i=index">
+                    <td scope="row"><strong> {{item.name}}</strong></td>
+                    <td>{{item.createdate |  date:"M/d/yy, h:mm" }}</td>
+                    <td><button type="button" class="btn btn-outline-primary" (click)="preview(item.file)">Önizle</button></td>
+                    <td><button type="button" class="btn btn-outline-danger" (click)="deleteFile(item)">Sil</button></td>
+                  </tr>
+                 
+                </tbody>
+              </table>
+            </div>
+          </div>
+    </div>
+</div>
+
+

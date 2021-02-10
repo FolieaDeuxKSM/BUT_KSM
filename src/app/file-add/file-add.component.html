@@ -1,0 +1,48 @@
+<nav class="navbar navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Anasayfa</a>
+    <a class="navbar-brand" [routerLink]="['/fileadd']" routerLinkActive="router-link-active">Dosya Ekle</a>
+
+</nav>
+<div class="container-fluid">
+    <div class="row mt-5">
+        <div class="col-md-6 offset-md-3">
+            <div class="card text-left">
+                <!-- <img class="card-img-top" src="holder.js/100px180/" alt=""> -->
+                <div class="card-body">
+                    <h4 class="card-title">Dosya Yükle</h4>
+                    <div class="form-group">
+                        <label for="name">Dosya ismi</label>
+                        <input type="text" class="form-control" [(ngModel)]="file.name" name="name" id="name"
+                            aria-describedby="helpId" placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <label for="type">Dosya Türünü Seçiniz</label>
+                        <select class="form-control" name="type" id="type" value="Dosya türü"
+                            [(ngModel)]="file.category">
+                            <option selected>Dosya türünü seç</option>
+                            <option value="picture">Resim</option>
+                            <option value="audio">Ses</option>
+                            <option value="pdf">Pdf</option>
+                        </select>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="inputGroupFile02"  (change)="fileSelect($event)">
+                            <label class="custom-file-label" for="inputGroupFile02"
+                                aria-describedby="inputGroupFileAddon02">Dosya seç</label>
+                        </div>
+                        <div class="input-group-append">
+                            <span class="input-group-text" id="inputGroupFileAddon02">Yükle</span>
+                        </div>
+                    </div>
+                    <div class="progress m-3" *ngIf="uploadProgress$ | async as progress">
+                        <div class="progress-bar"
+                          [ngClass]="progress ==100? 'bg-success':'bg-info progress-bar-striped'" role="progressbar"
+                          [ngStyle]="{ 'width': progress + '%' }"></div>
+                      </div>
+                    <button type="button" (click)="UploadFile()" class="btn btn-primary btn-lg btn-block">Gönder</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
